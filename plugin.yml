@@ -1,0 +1,40 @@
+﻿name: RsStats
+version: 1.6.3
+main: kr.tpsw.rsstats.Main
+author: TPsw
+softdepend: [RpgExpSystem, LoreAttributes]
+
+commands:
+    rsstats:
+        description: 'You can see RsStats info'
+        aliases: [stss]
+    sts:
+        description: '유저용 명령어입니다.'
+    stsadmin:
+        description: 'RsStats의 스텟을 관리합니다.'
+        aliases: [stsa]
+        permission: 'rsstats.admin'
+    stsadmin2:
+        description: 'RsStats의 전반적인 값들을 관리합니다.'
+        aliases: [stsa2]
+        permission: 'rsstats.admin'
+    stsgive:
+        description: '유저들에게 스텟을 줍니다.'
+        aliases: [stsg]
+        permission: 'rsstats.admin'
+    stsuser:
+        description: '유저들의 개인 값들을 수정합니다.'
+        aliases: [stsu]
+        permission: 'rsstats.admin'
+    stscmd:
+        description: '스텟별 명령어 예약'
+        aliases: [stsc]
+        permission: 'rsstats.admin'
+    stsupdate:
+        description: '업데이트 확인'
+        aliases: [stsup]
+        permission: 'rsstats.admin'
+    스텟:
+        description: '스텟 창 열기'
+    stsupdatenow:
+        permission: 'rsstats.admin'
