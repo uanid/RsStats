@@ -1,8 +1,11 @@
 # RsStats
 
 
+![https://github.com/Uanid/RsStats/blob/master/%EC%82%AC%EC%A7%841.PNG](https://github.com/Uanid/RsStats/blob/master/%EC%82%AC%EC%A7%841.PNG)
 
-플러그인 다운로드 횟수 5800회 돌파!!!
+
+### 뉴으스
+전체 플러그인 다운로드 횟수 5800회 돌파!!!
 
 
 
