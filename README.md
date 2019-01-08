@@ -24,6 +24,8 @@
 
 아울러 이 플러그인만 한국어 뿐 만이 아니라 영어 메시지도 지원합니다.
 
+(Also this plugin supports English message, not only Korean.)
+
 
 기존 글
 -------------
