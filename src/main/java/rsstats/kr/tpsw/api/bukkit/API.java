@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 public class API {
 
+    //TODO : 최신버전에선 작동안함... (item code가 string으로 변경됨)
     public static int[] getItemCode(String str) {
         String[] ids = str.split(":");
         int[] ii = {0, 0};

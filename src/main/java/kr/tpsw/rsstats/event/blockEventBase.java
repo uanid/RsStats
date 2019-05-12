@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
 
+//@TODO: Material에 묘목 분리된거 반영해야 함
 public class blockEventBase implements Listener {
 
     @EventHandler
@@ -24,7 +25,7 @@ public class blockEventBase implements Listener {
                 }
                 return;
             }
-            if (block == Material.SEEDS || block == Material.WHEAT || block == Material.MELON_BLOCK || block == Material.COCOA || block == Material.SAPLING || block == Material.POTATO || block == Material.CARROT) {
+            if (block == Material.WHEAT_SEEDS || block == Material.WHEAT || block == Material.MELON || block == Material.COCOA || block == Material.SAPLING || block == Material.POTATO || block == Material.CARROT) {
                 for (RpgStats rs : StatsAPI.StatsSet.PLANTS) {
                     StatsRunAPI.BlockBreak(sp, rs, event);
                 }
@@ -41,7 +42,7 @@ public class blockEventBase implements Listener {
         if (event.canBuild() && !event.isCancelled()) {
             StatsPlayer sp = StatsAPI.getStatsPlayer(event.getPlayer().getName());
             Material block = event.getBlock().getType();
-            if (block == Material.SEEDS || block == Material.WHEAT || block == Material.MELON_SEEDS || block == Material.COCOA || block == Material.SAPLING) {
+            if (block == Material.WHEAT_SEEDS || block == Material.WHEAT || block == Material.MELON_SEEDS || block == Material.COCOA || block == Material.SPRUCE_SAPLING) {
                 for (RpgStats rs : StatsAPI.StatsSet.PLANTS) {
                     StatsRunAPI.BlockPlace(sp, rs, event);
                 }
