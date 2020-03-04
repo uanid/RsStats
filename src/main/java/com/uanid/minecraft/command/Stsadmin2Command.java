@@ -2,7 +2,7 @@ package com.uanid.minecraft.command;
 
 import java.util.HashMap;
 
-import com.uanid.minecraft.service.StatsAPI;
+import com.uanid.minecraft.service.StatsService;
 import com.uanid.minecraft.RsStats;
 import com.uanid.minecraft.configuration.MessageConfig;
 import com.uanid.minecraft.domain.entity.RpgStats;
@@ -28,10 +28,10 @@ public class Stsadmin2Command implements CommandExecutor {
         } else if (args[0].equalsIgnoreCase("set") && argslen == 3) {
             if (API.isIntegerPositive(args[2])) {
                 if (args[1].equalsIgnoreCase("rpgexpsystem")) {
-                    StatsAPI.rpgexpsystem = Integer.valueOf(args[2]);
+                    StatsService.rpgexpsystem = Integer.valueOf(args[2]);
                     sender.sendMessage(MessageConfig.SUCCESSFULLY_SET_BONUS);
                 } else if (args[1].equalsIgnoreCase("mclevelup")) {
-                    StatsAPI.levelup = Integer.valueOf(args[2]);
+                    StatsService.levelup = Integer.valueOf(args[2]);
                     sender.sendMessage(MessageConfig.SUCCESSFULLY_SET_BONUS);
                 } else {
                     sender.sendMessage(MessageConfig.INCORRECT_BONUS_TYPE);
@@ -47,12 +47,12 @@ public class Stsadmin2Command implements CommandExecutor {
                     return true;
 
                 case "stats":
-                    StatsAPI.saveRpgStats();
+                    StatsService.saveRpgStats();
                     sender.sendMessage(MessageConfig.SUCCESSFULLY_SAVE);
                     return true;
 
                 case "user":
-                    StatsAPI.saveStatsPlayer();
+                    StatsService.saveStatsPlayer();
                     sender.sendMessage(MessageConfig.SUCCESSFULLY_SAVE);
                     return true;
 
@@ -66,7 +66,7 @@ public class Stsadmin2Command implements CommandExecutor {
             switch (args[1]) {
                 case "config":
                     RsStats.config.reloadYaml();
-                    StatsAPI.loadStatsItem();
+                    StatsService.loadStatsItem();
                     sender.sendMessage(MessageConfig.SUCCESSFULLY_RELOAD);
                     return true;
 
@@ -74,8 +74,8 @@ public class Stsadmin2Command implements CommandExecutor {
                     for (Player player : PlayersAPI.getOnlinePlayers()) {
                         player.kickPlayer(MessageConfig.KICK_MESSAGE);
                     }
-                    StatsAPI.rpgstats = new HashMap<String, RpgStats>();
-                    StatsAPI.loadRpgStats();
+                    StatsService.rpgstats = new HashMap<String, RpgStats>();
+                    StatsService.loadRpgStats();
                     sender.sendMessage(MessageConfig.SUCCESSFULLY_RELOAD);
                     return true;
 
@@ -83,8 +83,8 @@ public class Stsadmin2Command implements CommandExecutor {
                     for (Player player : PlayersAPI.getOnlinePlayers()) {
                         player.kickPlayer(MessageConfig.KICK_MESSAGE);
                     }
-                    StatsAPI.statsplyaer = new HashMap<String, StatsPlayer>();
-                    StatsAPI.loadStatsPlayer();
+                    StatsService.statsplyaer = new HashMap<String, StatsPlayer>();
+                    StatsService.loadStatsPlayer();
                     sender.sendMessage(MessageConfig.SUCCESSFULLY_RELOAD);
                     return true;
 
@@ -96,9 +96,9 @@ public class Stsadmin2Command implements CommandExecutor {
             }
             sender.sendMessage(MessageConfig.INCORRECT_FILE_NAME);
         } else if (args[0].equalsIgnoreCase("viewconfig") && argslen == 1) {
-            sender.sendMessage(MessageConfig.VIEW_STATS_BONUS.replace("<type>", "rpgexpsystem").replace("<bonus>", String.valueOf(StatsAPI.rpgexpsystem)));
-            sender.sendMessage(MessageConfig.VIEW_STATS_BONUS.replace("<type>", "mclevelup").replace("<bonus>", String.valueOf(StatsAPI.levelup)));
-            sender.sendMessage(MessageConfig.VIEW_STATS_BONUS.replace("<type>", "auto-save-time").replace("<bonus>", String.valueOf(StatsAPI.autosavetime)));
+            sender.sendMessage(MessageConfig.VIEW_STATS_BONUS.replace("<type>", "rpgexpsystem").replace("<bonus>", String.valueOf(StatsService.rpgexpsystem)));
+            sender.sendMessage(MessageConfig.VIEW_STATS_BONUS.replace("<type>", "mclevelup").replace("<bonus>", String.valueOf(StatsService.levelup)));
+            sender.sendMessage(MessageConfig.VIEW_STATS_BONUS.replace("<type>", "auto-save-time").replace("<bonus>", String.valueOf(StatsService.autosavetime)));
         } else {
             sender.sendMessage(MessageConfig.INCORRECT_MESSAGE.replace("<cmd>", label));
         }

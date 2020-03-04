@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.uanid.minecraft.service.StatsAPI;
+import com.uanid.minecraft.service.StatsService;
 import com.uanid.minecraft.util.StatsDataUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -78,7 +78,7 @@ public class StatsPlayer implements Serializable {
     }
 
     public void updateInventory() {
-        inv = StatsAPI.getStatsInventory(this);
+        inv = StatsService.getStatsInventory(this);
     }
 
     public Inventory getInventory() {
@@ -107,11 +107,11 @@ public class StatsPlayer implements Serializable {
         String v;
         while (it.hasNext()) {
             v = it.next();
-            if (!StatsAPI.isStat(v)) {
+            if (!StatsService.isStat(v)) {
                 it.remove();
             }
         }
-        for (String s : StatsAPI.rpgstats.keySet()) {
+        for (String s : StatsService.rpgstats.keySet()) {
             if (statspoint.get(s) == null) {
                 list.add(s);
             }

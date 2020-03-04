@@ -11,7 +11,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class StatsRunAPI {
+public class StatsRunService {
 
     public static void BlockBreak(StatsPlayer sp, RpgStats rs, BlockEvent event) {
         if (sp.getStatPoint(rs.name) * rs.coe > Math.random() * 100D) {

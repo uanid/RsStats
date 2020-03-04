@@ -5,12 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.uanid.minecraft.configuration.MessageConfig;
-import com.uanid.minecraft.service.StatsAPI;
+import com.uanid.minecraft.service.StatsService;
 import com.uanid.minecraft.util.StatsDataUtil;
 import com.uanid.minecraft.domain.type.StatsType;
-import com.uanid.minecraft.event.blockEventBase;
-import com.uanid.minecraft.event.entityEventBase;
-import com.uanid.minecraft.event.playerEventBase;
+import com.uanid.minecraft.event.BlockEventListener;
+import com.uanid.minecraft.event.EntityEventListener;
+import com.uanid.minecraft.event.PlayerEventListener;
 import com.uanid.minecraft.command.RsStatsCommand;
 import com.uanid.minecraft.command.StatsCommand;
 import com.uanid.minecraft.command.StsCommand;
@@ -85,9 +85,9 @@ public class RsStats extends JavaPlugin {
 			
 			PluginManager pm = Bukkit.getPluginManager();
 
-			pm.registerEvents(new blockEventBase(), this);
-			pm.registerEvents(new entityEventBase(), this);
-			pm.registerEvents(new playerEventBase(), this);
+			pm.registerEvents(new BlockEventListener(), this);
+			pm.registerEvents(new EntityEventListener(), this);
+			pm.registerEvents(new PlayerEventListener(), this);
 
 			this.setDataFile();
 			this.loadDataFile();// 데이터 로드, 설정
@@ -108,8 +108,8 @@ public class RsStats extends JavaPlugin {
 	public void onDisable() {
 		try {
 			StatsDataUtil.serialize();
-			StatsAPI.saveData();
-			StatsAPI.saveStatsItem();
+			StatsService.saveData();
+			StatsService.saveStatsItem();
 			config.saveYaml();
 			message.saveYaml();
 		} catch (Exception e) {
@@ -121,9 +121,9 @@ public class RsStats extends JavaPlugin {
 		StatsDataUtil.deserialize();
 		StatsDataUtil.checkNull();
 		MessageConfig.updateMessageAPIs();
-		StatsAPI.loadStatsItem();
-		StatsAPI.loadData();
-		StatsAPI.updateRpgStatsHastSet();
+		StatsService.loadStatsItem();
+		StatsService.loadData();
+		StatsService.updateRpgStatsHastSet();
 	}// 데이터 파일 로드
 
 	private void setDataFile() {
@@ -131,16 +131,16 @@ public class RsStats extends JavaPlugin {
 		if (version <= 0) {
 			config.set("version", 1);
 			version = 1;
-			StatsAPI.saveFirstStatsItem();
+			StatsService.saveFirstStatsItem();
 			{
 				ItemStack is = getItemstack(Material.DIAMOND_SWORD, "§e1포인트당 공격력 1 상승", "공격력");
-				StatsAPI.addRpgStats("공격스텟", 2, 2, StatsType.DAMAGE, 1, is);
+				StatsService.addRpgStats("공격스텟", 2, 2, StatsType.DAMAGE, 1, is);
 				is = getItemstack(Material.DIAMOND_CHESTPLATE, "§e1포인트당 방어력 1 상승", "방어력");
-				StatsAPI.addRpgStats("방어스텟", 4, 2, StatsType.DEFENSE, 1, is);
+				StatsService.addRpgStats("방어스텟", 4, 2, StatsType.DEFENSE, 1, is);
 				is = getItemstack(Material.APPLE, "§e2포인트당 체력 1 상승", "체력");
-				StatsAPI.addRpgStats("체력스텟", 6, 2, StatsType.HEALTH, 0.5, is);
+				StatsService.addRpgStats("체력스텟", 6, 2, StatsType.HEALTH, 0.5, is);
 				is = getItemstack(Material.DIAMOND_AXE, "§e1포인트당 치명타 확률 0.1%상승", "치명타");
-				StatsAPI.addRpgStats("치명타스텟", 8, 2, StatsType.DAMAGE, 0.1d, is);
+				StatsService.addRpgStats("치명타스텟", 8, 2, StatsType.DAMAGE, 0.1d, is);
 			}
 		}
 		if (version <= 4) {

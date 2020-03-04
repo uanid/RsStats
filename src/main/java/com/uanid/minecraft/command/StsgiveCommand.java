@@ -1,6 +1,6 @@
 package com.uanid.minecraft.command;
 
-import com.uanid.minecraft.service.StatsAPI;
+import com.uanid.minecraft.service.StatsService;
 import com.uanid.minecraft.configuration.MessageConfig;
 import com.uanid.minecraft.domain.entity.StatsPlayer;
 
@@ -18,7 +18,7 @@ public class StsgiveCommand implements CommandExecutor {
         if (args.length == 2) {
             String target;
             if ((target = PlayersAPI.findPlayerName(args[0])) != null) {
-                StatsPlayer sp = StatsAPI.getStatsPlayer(target);
+                StatsPlayer sp = StatsService.getStatsPlayer(target);
                 if (API.isIntegerPositive(args[1])) {
                     sp.addAvailablePoint(Integer.valueOf(args[1]));
                     sp.sendMessage(MessageConfig.STATS_GIVE_MESSAGE.replace("<point>", args[1]));

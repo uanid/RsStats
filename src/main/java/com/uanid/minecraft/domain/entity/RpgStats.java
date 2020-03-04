@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.uanid.minecraft.service.StatsAPI;
+import com.uanid.minecraft.service.StatsService;
 import com.uanid.minecraft.domain.type.StatsType;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
@@ -74,7 +74,7 @@ public class RpgStats implements Serializable {
         if (lore == null) {
             lore = new ArrayList<String>();
         }
-        lore.add(StatsAPI.replaceNowStats(point, max));
+        lore.add(StatsService.replaceNowStats(point, max));
         im.setLore(lore);
         is.setItemMeta(im);
         try {

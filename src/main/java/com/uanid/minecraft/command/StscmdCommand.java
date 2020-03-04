@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import com.uanid.minecraft.service.StatsAPI;
+import com.uanid.minecraft.service.StatsService;
 import com.uanid.minecraft.configuration.MessageConfig;
 import com.uanid.minecraft.util.StatsDataUtil;
 
@@ -37,7 +37,7 @@ public class StscmdCommand implements CommandExecutor {
         } else if (API.isInteger(args[0]) && argslen == 1) {
             MessageConfig.helpMessageList(sender, MessageConfig.stscmd, Integer.valueOf(args[0]), label);
         } else if (args[0].equalsIgnoreCase("set") && argslen >= 5) {
-            if (StatsAPI.isStat(args[1])) {
+            if (StatsService.isStat(args[1])) {
                 if (API.isIntegerPositive(args[2])) {
                     if (type.contains(args[3].toLowerCase())) {
                         String stats = args[1];
@@ -61,7 +61,7 @@ public class StscmdCommand implements CommandExecutor {
                 sender.sendMessage(MessageConfig.CANT_FINT_STATS_NAME);
             }
         } else if (args[0].equalsIgnoreCase("remove") && argslen == 3) {
-            if (StatsAPI.isStat(args[1])) {
+            if (StatsService.isStat(args[1])) {
                 if (API.isIntegerPositive(args[2])) {
                     int point = Integer.valueOf(args[2]);
                     String stats = args[1];

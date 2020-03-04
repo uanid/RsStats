@@ -6,9 +6,9 @@ import java.util.Set;
 
 import com.uanid.minecraft.configuration.MessageConfig;
 import com.uanid.minecraft.domain.entity.RpgStats;
-import com.uanid.minecraft.service.StatsAPI;
+import com.uanid.minecraft.service.StatsService;
 import com.uanid.minecraft.domain.entity.StatsPlayer;
-import com.uanid.minecraft.service.StatsRunAPI;
+import com.uanid.minecraft.service.StatsRunService;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -30,7 +30,7 @@ public class StsuserCommand implements CommandExecutor {
 			String target = PlayersAPI.findOfflinePlayerName(args[1]);
 			if (target != null) {
 				if (API.isIntegerPositive(args[2])) {
-					StatsPlayer sp = StatsAPI.getStatsPlayer(target);
+					StatsPlayer sp = StatsService.getStatsPlayer(target);
 					sp.addAvailablePoint(Integer.valueOf(args[2]));
 					sender.sendMessage(MessageConfig.SUCCESSFULLY_ADD_POINT);
 				} else {
@@ -43,7 +43,7 @@ public class StsuserCommand implements CommandExecutor {
 			String target = PlayersAPI.findOfflinePlayerName(args[1]);
 			if (target != null) {
 				if (API.isIntegerPositive(args[2])) {
-					StatsPlayer sp = StatsAPI.getStatsPlayer(target);
+					StatsPlayer sp = StatsService.getStatsPlayer(target);
 					sp.setAvailablePoint(Integer.valueOf(args[2]));
 					sender.sendMessage(MessageConfig.SUCCESSFULLY_SET_POINT);
 				} else {
@@ -59,7 +59,7 @@ public class StsuserCommand implements CommandExecutor {
 				if (argslen == 3 && API.isIntegerPositive(args[2])) {
 					i = Integer.valueOf(args[2]);
 				}
-				StatsPlayer sp = StatsAPI.getStatsPlayer(target);
+				StatsPlayer sp = StatsService.getStatsPlayer(target);
 				Set<String> set = sp.getStats().keySet();
 				List<String> list = new LinkedList<String>();
 				for (String name : set) {
@@ -72,9 +72,9 @@ public class StsuserCommand implements CommandExecutor {
 		} else if (args[0].equalsIgnoreCase("dadd") && argslen == 4) {
 			String target = PlayersAPI.findOfflinePlayerName(args[1]);
 			if (target != null) {
-				if (StatsAPI.isStat(args[2])) {
+				if (StatsService.isStat(args[2])) {
 					if (API.isIntegerPositive(args[3])) {
-						StatsPlayer sp = StatsAPI.getStatsPlayer(target);
+						StatsPlayer sp = StatsService.getStatsPlayer(target);
 						sp.addStatsPoint(args[2], Integer.valueOf(args[3]));
 						sender.sendMessage(MessageConfig.SUCCESSFULLY_ADD_POINT);
 					} else {
@@ -89,9 +89,9 @@ public class StsuserCommand implements CommandExecutor {
 		} else if (args[0].equalsIgnoreCase("dset") && argslen == 4) {
 			String target = PlayersAPI.findOfflinePlayerName(args[1]);
 			if (target != null) {
-				if (StatsAPI.isStat(args[2])) {
+				if (StatsService.isStat(args[2])) {
 					if (API.isIntegerPositive(args[3])) {
-						StatsPlayer sp = StatsAPI.getStatsPlayer(target);
+						StatsPlayer sp = StatsService.getStatsPlayer(target);
 						sp.setStatPoint(args[2], Integer.valueOf(args[3]));
 						sender.sendMessage(MessageConfig.SUCCESSFULLY_SET_POINT);
 					} else {
@@ -106,8 +106,8 @@ public class StsuserCommand implements CommandExecutor {
 		} else if (args[0].equalsIgnoreCase("dview") && argslen == 3) {
 			String target = PlayersAPI.findOfflinePlayerName(args[1]);
 			if (target != null) {
-				if (StatsAPI.isStat(args[2])) {
-					StatsPlayer sp = StatsAPI.getStatsPlayer(target);
+				if (StatsService.isStat(args[2])) {
+					StatsPlayer sp = StatsService.getStatsPlayer(target);
 					String name = args[2];
 					sender.sendMessage(MessageConfig.VIEW_USER_STATS.replace("<stats>", name).replace("<point>", String.valueOf(sp.getStatPoint(name))));
 				} else {
@@ -120,33 +120,33 @@ public class StsuserCommand implements CommandExecutor {
 			String target = PlayersAPI.findOfflinePlayerName(args[1]);
 			if (target != null) {
 				if (args[2].equalsIgnoreCase("all")) {
-					StatsPlayer sp = StatsAPI.getStatsPlayer(target);
-					for (RpgStats rs : StatsAPI.rpgstats.values()) {
+					StatsPlayer sp = StatsService.getStatsPlayer(target);
+					for (RpgStats rs : StatsService.rpgstats.values()) {
 						int i = sp.getStatPoint(rs.name);
 						sp.setStatPoint(rs.name, 0);
 						sp.addAvailablePoint(i);
 					}
 					if (sp.isOnline()) {
 						double health = 20;
-						for (RpgStats rs : StatsAPI.StatsSet.HEALTH) {
-							health += StatsRunAPI.PlayerHealth(sp, rs);
+						for (RpgStats rs : StatsService.StatsSet.HEALTH) {
+							health += StatsRunService.PlayerHealth(sp, rs);
 						} // 체력 업데이트
 						if (health >= 1) {
 							sp.getPlayer().setMaxHealth((int) health);
 						}
 					}
 					sender.sendMessage(MessageConfig.SUCCESSFULLY_RESET_POINT);
-				} else if (StatsAPI.isStat(args[2])) {
-					StatsPlayer sp = StatsAPI.getStatsPlayer(target);
-					RpgStats rs = StatsAPI.getRpgStats(args[2]);
+				} else if (StatsService.isStat(args[2])) {
+					StatsPlayer sp = StatsService.getStatsPlayer(target);
+					RpgStats rs = StatsService.getRpgStats(args[2]);
 					int i = sp.getStatPoint(rs.name);
 					sp.setStatPoint(rs.name, 0);
 					sp.addAvailablePoint(i);
 					sender.sendMessage(MessageConfig.SUCCESSFULLY_RESET_POINT);
 					if (sp.isOnline()) {
 						double health = 20;
-						for (RpgStats rss : StatsAPI.StatsSet.HEALTH) {
-							health += StatsRunAPI.PlayerHealth(sp, rss);
+						for (RpgStats rss : StatsService.StatsSet.HEALTH) {
+							health += StatsRunService.PlayerHealth(sp, rss);
 						} // 체력 업데이트
 						if (health >= 1) {
 							sp.getPlayer().setMaxHealth((int) health);
@@ -161,15 +161,15 @@ public class StsuserCommand implements CommandExecutor {
 		} else if (args[0].equalsIgnoreCase("remove") && argslen == 2) {
 			String target = PlayersAPI.findOfflinePlayerName(args[1]);
 			if (target != null) {
-				StatsPlayer sp = StatsAPI.getStatsPlayer(target);
-				for (RpgStats rs : StatsAPI.rpgstats.values()) {
+				StatsPlayer sp = StatsService.getStatsPlayer(target);
+				for (RpgStats rs : StatsService.rpgstats.values()) {
 					sp.setStatPoint(rs.name, 0);
 				}
 				sp.setAvailablePoint(0);
 				if (sp.isOnline()) {
 					double health = 20;
-					for (RpgStats rs : StatsAPI.StatsSet.HEALTH) {
-						health += StatsRunAPI.PlayerHealth(sp, rs);
+					for (RpgStats rs : StatsService.StatsSet.HEALTH) {
+						health += StatsRunService.PlayerHealth(sp, rs);
 					} // 체력 업데이트
 					if (health >= 1) {
 						sp.getPlayer().setMaxHealth((int) health);

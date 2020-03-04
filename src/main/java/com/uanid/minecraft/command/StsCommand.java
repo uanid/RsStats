@@ -1,7 +1,7 @@
 package com.uanid.minecraft.command;
 
 import com.uanid.minecraft.configuration.MessageConfig;
-import com.uanid.minecraft.service.StatsAPI;
+import com.uanid.minecraft.service.StatsService;
 import com.uanid.minecraft.domain.entity.StatsPlayer;
 
 import org.bukkit.command.Command;
@@ -33,8 +33,8 @@ public class StsCommand implements CommandExecutor {
                 if (target == null) {
                     sender.sendMessage(MessageConfig.CANT_FINT_USER);
                 } else {
-                    StatsPlayer tsp = StatsAPI.getStatsPlayer(target);
-                    StatsPlayer sp = StatsAPI.getStatsPlayer(sender.getName());
+                    StatsPlayer tsp = StatsService.getStatsPlayer(target);
+                    StatsPlayer sp = StatsService.getStatsPlayer(sender.getName());
                     if (tsp == sp || tsp.isRelease() || sp.getPlayer().isOp()) {
                         try {
                             tsp.updateInventory();
@@ -62,7 +62,7 @@ public class StsCommand implements CommandExecutor {
             } else if ((args[0].equalsIgnoreCase("r") || args[0].equalsIgnoreCase("release")) && argslen == 2) {
                 if (args[1].equalsIgnoreCase("false") || args[1].equalsIgnoreCase("true")) {
                     boolean release = Boolean.valueOf(args[1].toLowerCase());
-                    StatsPlayer sp = StatsAPI.getStatsPlayer(sender.getName());
+                    StatsPlayer sp = StatsService.getStatsPlayer(sender.getName());
                     sp.setRelease(release);
                     sender.sendMessage(MessageConfig.SUCCESSFULLY_SET_RELEASE.replace("<release>", String.valueOf(release)));
                 }

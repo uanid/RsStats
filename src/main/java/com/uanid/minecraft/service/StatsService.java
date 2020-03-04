@@ -28,7 +28,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import rsstats.kr.tpsw.api.bukkit.API;
 
-public class StatsAPI {
+public class StatsService {
 
     public static Map<String, RpgStats> rpgstats = new HashMap<String, RpgStats>();
     public static Map<String, StatsPlayer> statsplyaer = new HashMap<String, StatsPlayer>();
