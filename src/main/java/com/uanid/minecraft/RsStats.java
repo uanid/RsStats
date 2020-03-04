@@ -4,10 +4,10 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.uanid.minecraft.api.MessageAPI;
-import com.uanid.minecraft.api.StatsAPI;
-import com.uanid.minecraft.api.StatsCmdAPI;
-import com.uanid.minecraft.api.StatsType;
+import com.uanid.minecraft.configuration.MessageConfig;
+import com.uanid.minecraft.service.StatsAPI;
+import com.uanid.minecraft.util.StatsDataUtil;
+import com.uanid.minecraft.domain.type.StatsType;
 import com.uanid.minecraft.event.blockEventBase;
 import com.uanid.minecraft.event.entityEventBase;
 import com.uanid.minecraft.event.playerEventBase;
@@ -20,10 +20,10 @@ import com.uanid.minecraft.command.StscmdCommand;
 import com.uanid.minecraft.command.StsgiveCommand;
 import com.uanid.minecraft.command.StsupdateCommand;
 import com.uanid.minecraft.command.StsuserCommand;
-import com.uanid.minecraft.config.YamlConfiguration;
+import com.uanid.minecraft.util.YamlConfigurationUtil;
 
-import com.uanid.minecraft.service.NaverBlogParser;
-import com.uanid.minecraft.service.WordPressBlogParser;
+import com.uanid.minecraft.util.NaverBlogParser;
+import com.uanid.minecraft.util.WordPressBlogParser;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -39,10 +39,10 @@ public class RsStats extends JavaPlugin {
 	public static RsStats plugin;
 	public static final String lang = "kr";
 
-	public static YamlConfiguration config;
-	public static YamlConfiguration message;
-	public static YamlConfiguration testu;
-	public static YamlConfiguration tests;
+	public static YamlConfigurationUtil config;
+	public static YamlConfigurationUtil message;
+	public static YamlConfigurationUtil testu;
+	public static YamlConfigurationUtil tests;
 
 	public static StsCommand sts = null;
 
@@ -67,8 +67,8 @@ public class RsStats extends JavaPlugin {
 				}// 폴더가 있을 경우
 			}
 
-			config = new YamlConfiguration("plugins\\RsStats\\config.yml");
-			message = new YamlConfiguration("plugins\\RsStats\\message.yml");
+			config = new YamlConfigurationUtil("plugins\\RsStats\\config.yml");
+			message = new YamlConfigurationUtil("plugins\\RsStats\\message.yml");
 			PlayersAPI.initLoad(this);
 
 			getCommand("rsstats").setExecutor(new RsStatsCommand());
@@ -93,7 +93,7 @@ public class RsStats extends JavaPlugin {
 			this.loadDataFile();// 데이터 로드, 설정
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("[RsStats] " + MessageAPI.PLUGIN_LOAD_ERROR);
+			System.out.println("[RsStats] " + MessageConfig.PLUGIN_LOAD_ERROR);
 			Bukkit.getPluginManager().disablePlugin(this);
 			return;
 		}
@@ -102,12 +102,12 @@ public class RsStats extends JavaPlugin {
 			Bukkit.getPluginManager().disablePlugin(this);
 			return;
 		} // 인증 실패시 플러그인 종료
-		System.out.println("[RsStats] " + MessageAPI.PLUGIN_LOAD_SUCCESSFULLY);
+		System.out.println("[RsStats] " + MessageConfig.PLUGIN_LOAD_SUCCESSFULLY);
 	}
 
 	public void onDisable() {
 		try {
-			StatsCmdAPI.serialize();
+			StatsDataUtil.serialize();
 			StatsAPI.saveData();
 			StatsAPI.saveStatsItem();
 			config.saveYaml();
@@ -118,9 +118,9 @@ public class RsStats extends JavaPlugin {
 	}
 
 	private void loadDataFile() {
-		StatsCmdAPI.deserialize();
-		StatsCmdAPI.checkNull();
-		MessageAPI.updateMessageAPIs();
+		StatsDataUtil.deserialize();
+		StatsDataUtil.checkNull();
+		MessageConfig.updateMessageAPIs();
 		StatsAPI.loadStatsItem();
 		StatsAPI.loadData();
 		StatsAPI.updateRpgStatsHastSet();
@@ -146,7 +146,7 @@ public class RsStats extends JavaPlugin {
 		if (version <= 4) {
 			config.set("version", 5);
 			version = 5;
-			StatsCmdAPI.firstSetMap();
+			StatsDataUtil.firstSetMap();
 		}
 		if (version <= 5) {
 			config.set("version", 6);
@@ -156,7 +156,7 @@ public class RsStats extends JavaPlugin {
 		if (version <= 7) {
 			config.set("version", 8);
 			version = 8;
-			MessageAPI.saveMessageConfig();
+			MessageConfig.saveMessageConfig();
 		}
 	}// 데이터파일 버전 확인
 

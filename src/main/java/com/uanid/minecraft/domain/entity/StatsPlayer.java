@@ -1,4 +1,4 @@
-package com.uanid.minecraft.api;
+package com.uanid.minecraft.domain.entity;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.uanid.minecraft.service.StatsAPI;
+import com.uanid.minecraft.util.StatsDataUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -48,7 +50,7 @@ public class StatsPlayer implements Serializable {
         for (String key : inststats.keySet()) {
             point = statspoint.get(key);
             delta = inststats.get(key) - statspoint.get(key);
-            smap = StatsCmdAPI.map.get(key);
+            smap = StatsDataUtil.map.get(key);
             if (smap != null) {
                 for (int i = 0; i < delta; i++) {
                     cmd = smap.get(i + point + 1);

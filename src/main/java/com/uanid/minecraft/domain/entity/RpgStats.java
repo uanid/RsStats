@@ -1,4 +1,4 @@
-package com.uanid.minecraft.api;
+package com.uanid.minecraft.domain.entity;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -7,6 +7,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.uanid.minecraft.service.StatsAPI;
+import com.uanid.minecraft.domain.type.StatsType;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;

@@ -1,4 +1,4 @@
-package com.uanid.minecraft.service;
+package com.uanid.minecraft.util;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

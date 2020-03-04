@@ -3,8 +3,8 @@ package com.uanid.minecraft.command;
 import java.util.List;
 import java.util.Map;
 
-import com.uanid.minecraft.service.NaverBlogParser;
-import com.uanid.minecraft.api.MessageAPI;
+import com.uanid.minecraft.util.NaverBlogParser;
+import com.uanid.minecraft.configuration.MessageConfig;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,14 +21,14 @@ public class StsupdateCommand implements CommandExecutor {
 
         Map<String, List<String>> map = NaverBlogParser.updateLogMap;
         if (map == null) {
-            sender.sendMessage(MessageAPI.CANT_FIND_UPDATE_LOG);
+            sender.sendMessage(MessageConfig.CANT_FIND_UPDATE_LOG);
             return true;
         }
         for (String key : map.keySet()) {
-            sender.sendMessage(MessageAPI.PLUGINLOG1.replace("<version>", key));
+            sender.sendMessage(MessageConfig.PLUGINLOG1.replace("<version>", key));
             List<String> list = map.get(key);
             for (String s : list) {
-                sender.sendMessage(MessageAPI.PLUGINLOG2.replace("<log>", s));
+                sender.sendMessage(MessageConfig.PLUGINLOG2.replace("<log>", s));
             }
         }
         return true;

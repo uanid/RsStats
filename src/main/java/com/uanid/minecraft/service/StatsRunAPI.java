@@ -1,5 +1,8 @@
-package com.uanid.minecraft.api;
+package com.uanid.minecraft.service;
 
+import com.uanid.minecraft.configuration.MessageConfig;
+import com.uanid.minecraft.domain.entity.RpgStats;
+import com.uanid.minecraft.domain.entity.StatsPlayer;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockEvent;
@@ -16,7 +19,7 @@ public class StatsRunAPI {
             for (ItemStack is : event.getBlock().getDrops()) {
                 loc.getWorld().dropItem(loc, is);
             }
-            sp.sendMessage(MessageAPI.RUN_BREAK);
+            sp.sendMessage(MessageConfig.RUN_BREAK);
         }
     }
 
@@ -27,7 +30,7 @@ public class StatsRunAPI {
             // sp.getPlayer().getInventory().addItem(new ItemStack[] { is });
             sp.getPlayer().getInventory().addItem(is);
             sp.getPlayer().updateInventory();
-            sp.sendMessage(MessageAPI.RUN_PLACE);
+            sp.sendMessage(MessageConfig.RUN_PLACE);
         }
     }
 
@@ -58,14 +61,14 @@ public class StatsRunAPI {
             is.setAmount(1);
             sp.getPlayer().getInventory().addItem(is);
             sp.getPlayer().updateInventory();
-            sp.sendMessage(MessageAPI.RUN_ITEM);
+            sp.sendMessage(MessageConfig.RUN_ITEM);
         }
     }
 
     public static void DamageCritical(StatsPlayer sp, RpgStats rs, EntityDamageByEntityEvent event) {
         if (sp.getStatPoint(rs.name) * rs.coe > Math.random() * 100D) {
             event.setDamage(event.getDamage() * 2);
-            sp.sendMessage(MessageAPI.RUN_CRITICAL);
+            sp.sendMessage(MessageConfig.RUN_CRITICAL);
         }
     }
 

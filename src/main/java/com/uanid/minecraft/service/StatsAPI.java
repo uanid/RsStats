@@ -1,4 +1,4 @@
-package com.uanid.minecraft.api;
+package com.uanid.minecraft.service;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,7 +14,11 @@ import java.util.Map;
 import java.util.Set;
 
 import com.uanid.minecraft.RsStats;
-import com.uanid.minecraft.config.YamlConfiguration;
+import com.uanid.minecraft.configuration.MessageConfig;
+import com.uanid.minecraft.domain.entity.RpgStats;
+import com.uanid.minecraft.domain.entity.StatsPlayer;
+import com.uanid.minecraft.domain.type.StatsType;
+import com.uanid.minecraft.util.YamlConfigurationUtil;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -40,7 +44,7 @@ public class StatsAPI {
 
     //@TODO: Material 변경 된것 반영해야함
     public static void loadStatsItem() {
-        YamlConfiguration config = RsStats.config;
+        YamlConfigurationUtil config = RsStats.config;
         {
             String code = config.getString("config.availablestats.item");
             String name = config.getString("config.availablestats.name");
@@ -89,7 +93,7 @@ public class StatsAPI {
                 new Thread(new Runnable() {
                     public void run() {
                         saveData();
-                        Bukkit.broadcastMessage(MessageAPI.AUTO_SAVE);
+                        Bukkit.broadcastMessage(MessageConfig.AUTO_SAVE);
                     }
                 }).start();
             }
@@ -237,11 +241,11 @@ public class StatsAPI {
     }
 
     public static String replaceNowStats(int point, int max) {
-        return MessageAPI.STATS_LORE_NOW.replace("<point>", String.valueOf(point)).replace("<max>", (max == -1 ? MessageAPI.INFINITE : String.valueOf(max)));
+        return MessageConfig.STATS_LORE_NOW.replace("<point>", String.valueOf(point)).replace("<max>", (max == -1 ? MessageConfig.INFINITE : String.valueOf(max)));
     }
 
     public static Inventory getStatsInventory(StatsPlayer player) {
-        Inventory inv = Bukkit.createInventory(null, 27, NAMECODE + MessageAPI.INVENTORY_NAME.replace("<name>", player.getName()));
+        Inventory inv = Bukkit.createInventory(null, 27, NAMECODE + MessageConfig.INVENTORY_NAME.replace("<name>", player.getName()));
         for (RpgStats rs : rpgstats.values()) {
             rs.setItem(inv, player.getStatPoint(rs.name));
         }
@@ -251,7 +255,7 @@ public class StatsAPI {
         if (list == null) {
             list = new LinkedList<String>();
         }
-        list.add(MessageAPI.AVILABLESTATS.replace("<point>", String.valueOf(player.getAvailablePoint())));
+        list.add(MessageConfig.AVILABLESTATS.replace("<point>", String.valueOf(player.getAvailablePoint())));
         im.setLore(list);
         is.setItemMeta(im);
         inv.setItem(STATS_POINT_LOC, is);

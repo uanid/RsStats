@@ -1,14 +1,14 @@
-package com.uanid.minecraft.api;
+package com.uanid.minecraft.configuration;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import com.uanid.minecraft.RsStats;
-import com.uanid.minecraft.config.YamlConfiguration;
+import com.uanid.minecraft.util.YamlConfigurationUtil;
 
 import org.bukkit.command.CommandSender;
 
-public class MessageAPI {
+public class MessageConfig {
 
     public static List<String> sts;
     public static List<String> stsadmin;
@@ -116,7 +116,7 @@ public class MessageAPI {
     }
 
     public static void updateMessageAPIs() {
-        YamlConfiguration me = RsStats.message;
+        YamlConfigurationUtil me = RsStats.message;
         sts = me.getStringList("command.sts.help");
         stsadmin = me.getStringList("command.stsadmin.help");
         stsadmin2 = me.getStringList("command.stsadmin2.help");
@@ -213,9 +213,9 @@ public class MessageAPI {
             sender.sendMessage(CANT_FIND_MESSAGELIST);
         } else {
             if (list.size() % 10 == 0) {
-                sender.sendMessage(MessageAPI.LIST_INDEX_MESSAGE.replace("<n>", String.valueOf(list.size())).replace("<index>", String.valueOf(i)).replace("<all>", String.valueOf(list.size() / 10)));
+                sender.sendMessage(MessageConfig.LIST_INDEX_MESSAGE.replace("<n>", String.valueOf(list.size())).replace("<index>", String.valueOf(i)).replace("<all>", String.valueOf(list.size() / 10)));
             } else {
-                sender.sendMessage(MessageAPI.LIST_INDEX_MESSAGE.replace("<n>", String.valueOf(list.size())).replace("<index>", String.valueOf(i)).replace("<all>", String.valueOf(list.size() / 10 + 1)));
+                sender.sendMessage(MessageConfig.LIST_INDEX_MESSAGE.replace("<n>", String.valueOf(list.size())).replace("<index>", String.valueOf(i)).replace("<all>", String.valueOf(list.size() / 10 + 1)));
             }
             for (int j = (i - 1) * 10; j < i * 10; j++) {
                 sender.sendMessage(LIST_INDEX.replace("<index>", String.valueOf(j + 1)).replace("<message>", list.get(j).replaceAll("&", "§")));
@@ -230,7 +230,7 @@ public class MessageAPI {
     }
 
     public static void saveMessageConfig() {
-        YamlConfiguration me = RsStats.message;
+        YamlConfigurationUtil me = RsStats.message;
         List<String> sts = new LinkedList<String>();
         List<String> stsadmin = new LinkedList<String>();
         List<String> stsadmin2 = new LinkedList<String>();

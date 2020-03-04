@@ -5,10 +5,10 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.uanid.minecraft.api.StatsAPI;
-import com.uanid.minecraft.api.MessageAPI;
-import com.uanid.minecraft.api.RpgStats;
-import com.uanid.minecraft.api.StatsType;
+import com.uanid.minecraft.service.StatsAPI;
+import com.uanid.minecraft.configuration.MessageConfig;
+import com.uanid.minecraft.domain.entity.RpgStats;
+import com.uanid.minecraft.domain.type.StatsType;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -25,9 +25,9 @@ public class StsadminCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         int argslen = args.length;
         if (argslen == 0) {
-            MessageAPI.helpMessageList(sender, MessageAPI.stsadmin, 1, label);
+            MessageConfig.helpMessageList(sender, MessageConfig.stsadmin, 1, label);
         } else if (API.isInteger(args[0])) {
-            MessageAPI.helpMessageList(sender, MessageAPI.stsadmin, Integer.valueOf(args[0]), label);
+            MessageConfig.helpMessageList(sender, MessageConfig.stsadmin, Integer.valueOf(args[0]), label);
         } else if (args[0].equalsIgnoreCase("add") && argslen == 6) {
             if (!StatsAPI.isStat(args[1])) {
                 if (API.isIntegerPositive(args[2]) && API.isIntegerPositive(args[3])) {
@@ -46,21 +46,21 @@ public class StsadminCommand implements CommandExecutor {
                                 is.setItemMeta(im);
                                 StatsAPI.addRpgStats(name, x, y, type, coe, is);
                                 StatsAPI.updateRpgStatsHastSet();
-                                sender.sendMessage(MessageAPI.SUCCESSFULLY_ADD_STATS);
+                                sender.sendMessage(MessageConfig.SUCCESSFULLY_ADD_STATS);
                             } else {
-                                sender.sendMessage(MessageAPI.INCORRECT_COEFFICIENT);
+                                sender.sendMessage(MessageConfig.INCORRECT_COEFFICIENT);
                             }
                         } else {
-                            sender.sendMessage(MessageAPI.INCORRECT_STATS_TYPE);
+                            sender.sendMessage(MessageConfig.INCORRECT_STATS_TYPE);
                         }
                     } else {
-                        sender.sendMessage(MessageAPI.PLZ_ENTER_CORRECT_X_Y);
+                        sender.sendMessage(MessageConfig.PLZ_ENTER_CORRECT_X_Y);
                     }
                 } else {
-                    sender.sendMessage(MessageAPI.INCORRECT_X_Y_INTEGER);
+                    sender.sendMessage(MessageConfig.INCORRECT_X_Y_INTEGER);
                 }
             } else {
-                sender.sendMessage(MessageAPI.ALREADY_HAS_STATS_NAME);
+                sender.sendMessage(MessageConfig.ALREADY_HAS_STATS_NAME);
             }
         } else if (args[0].equalsIgnoreCase("edit") && argslen == 6) {
             if (StatsAPI.isStat(args[1])) {
@@ -80,28 +80,28 @@ public class StsadminCommand implements CommandExecutor {
                                 rs.coe = coe;
                                 StatsAPI.updateRpgStats();
                                 StatsAPI.updateRpgStatsHastSet();
-                                sender.sendMessage(MessageAPI.SUCCESSFULLY_EDIT_STATS);
+                                sender.sendMessage(MessageConfig.SUCCESSFULLY_EDIT_STATS);
                             } else {
-                                sender.sendMessage(MessageAPI.INCORRECT_COEFFICIENT);
+                                sender.sendMessage(MessageConfig.INCORRECT_COEFFICIENT);
                             }
                         } else {
-                            sender.sendMessage(MessageAPI.INCORRECT_STATS_TYPE);
+                            sender.sendMessage(MessageConfig.INCORRECT_STATS_TYPE);
                         }
                     } else {
-                        sender.sendMessage(MessageAPI.PLZ_ENTER_CORRECT_X_Y);
+                        sender.sendMessage(MessageConfig.PLZ_ENTER_CORRECT_X_Y);
                     }
                 } else {
-                    sender.sendMessage(MessageAPI.INCORRECT_X_Y_INTEGER);
+                    sender.sendMessage(MessageConfig.INCORRECT_X_Y_INTEGER);
                 }
             } else {
-                sender.sendMessage(MessageAPI.CANT_FINT_STATS_NAME);
+                sender.sendMessage(MessageConfig.CANT_FINT_STATS_NAME);
             }
         } else if (args[0].equalsIgnoreCase("remove") && argslen == 2) {
             if (StatsAPI.isStat(args[1])) {
                 StatsAPI.removeRpgStats(args[1]);
-                sender.sendMessage(MessageAPI.SUCCESSFULLY_REMOVE_STATS);
+                sender.sendMessage(MessageConfig.SUCCESSFULLY_REMOVE_STATS);
             } else {
-                sender.sendMessage(MessageAPI.CANT_FINT_STATS_NAME);
+                sender.sendMessage(MessageConfig.CANT_FINT_STATS_NAME);
             }
         } else if (args[0].equalsIgnoreCase("list") && argslen <= 2) {
             int index = 1;
@@ -109,7 +109,7 @@ public class StsadminCommand implements CommandExecutor {
                 if (API.isIntegerPositive(args[1])) {
                     index = Integer.valueOf(args[1]);
                 } else {
-                    sender.sendMessage(MessageAPI.INCORRECT_POSITIVE_INTEGER);
+                    sender.sendMessage(MessageConfig.INCORRECT_POSITIVE_INTEGER);
                     return true;
                 }
             } else {
@@ -120,7 +120,7 @@ public class StsadminCommand implements CommandExecutor {
             for (RpgStats rs : col) {
                 list.add(rs.toString());
             }
-            MessageAPI.helpMessageList(sender, list, index, label + " list");
+            MessageConfig.helpMessageList(sender, list, index, label + " list");
         } else if (args[0].equalsIgnoreCase("addlore") && argslen >= 3) {
             if (StatsAPI.isStat(args[1])) {
                 RpgStats rs = StatsAPI.getRpgStats(args[1]);
@@ -133,9 +133,9 @@ public class StsadminCommand implements CommandExecutor {
                 im.setLore(lore);
                 rs.is.setItemMeta(im);
                 StatsAPI.updateRpgStats();
-                sender.sendMessage(MessageAPI.SUCCESSFULLY_ADDLORE_STATS);
+                sender.sendMessage(MessageConfig.SUCCESSFULLY_ADDLORE_STATS);
             } else {
-                sender.sendMessage(MessageAPI.CANT_FINT_STATS_NAME);
+                sender.sendMessage(MessageConfig.CANT_FINT_STATS_NAME);
             }
         } else if (args[0].equalsIgnoreCase("removelore") && argslen == 3) {
             if (StatsAPI.isStat(args[1])) {
@@ -152,30 +152,30 @@ public class StsadminCommand implements CommandExecutor {
                         im.setLore(list);
                         rs.is.setItemMeta(im);
                         StatsAPI.updateRpgStats();
-                        sender.sendMessage(MessageAPI.SUCCESSFULLY_REMOVELORE_STATS);
+                        sender.sendMessage(MessageConfig.SUCCESSFULLY_REMOVELORE_STATS);
                     } else {
-                        sender.sendMessage(MessageAPI.INCORRECT_LIST_INDEX);
+                        sender.sendMessage(MessageConfig.INCORRECT_LIST_INDEX);
                     }
                 } else {
-                    sender.sendMessage(MessageAPI.INCORRECT_POSITIVE_INTEGER);
+                    sender.sendMessage(MessageConfig.INCORRECT_POSITIVE_INTEGER);
                 }
             } else {
-                sender.sendMessage(MessageAPI.CANT_FINT_STATS_NAME);
+                sender.sendMessage(MessageConfig.CANT_FINT_STATS_NAME);
             }
         } else if (args[0].equalsIgnoreCase("setitem") && argslen == 3) {
             if (StatsAPI.isStat(args[1])) {
                 RpgStats rs = StatsAPI.getRpgStats(args[1]);
                 int[] ia = API.getItemCode(args[2]);
                 if (ia[0] == 0) {
-                    sender.sendMessage(MessageAPI.INCORRECT_ITEM_CODE);
+                    sender.sendMessage(MessageConfig.INCORRECT_ITEM_CODE);
                 } else {
                     rs.is.setType(Material.getMaterial(String.valueOf(ia[0])));
                     rs.is.setDurability((short) ia[1]);
                     StatsAPI.updateRpgStats();
-                    sender.sendMessage(MessageAPI.SUCCESSFULLY_SETITEM_STATS);
+                    sender.sendMessage(MessageConfig.SUCCESSFULLY_SETITEM_STATS);
                 }
             } else {
-                sender.sendMessage(MessageAPI.CANT_FINT_STATS_NAME);
+                sender.sendMessage(MessageConfig.CANT_FINT_STATS_NAME);
             }
         } else if (args[0].equalsIgnoreCase("setitemname") && argslen >= 3) {
             if (StatsAPI.isStat(args[1])) {
@@ -185,9 +185,9 @@ public class StsadminCommand implements CommandExecutor {
                 im.setDisplayName(name.replace('&', '§'));
                 rs.is.setItemMeta(im);
                 StatsAPI.updateRpgStats();
-                sender.sendMessage(MessageAPI.SUCCESSFULLY_SETITEMNAME_STATS);
+                sender.sendMessage(MessageConfig.SUCCESSFULLY_SETITEMNAME_STATS);
             } else {
-                sender.sendMessage(MessageAPI.CANT_FINT_STATS_NAME);
+                sender.sendMessage(MessageConfig.CANT_FINT_STATS_NAME);
             }
         } else if (args[0].equalsIgnoreCase("setmax") && argslen == 3) {
             if (StatsAPI.isStat(args[1])) {
@@ -195,17 +195,17 @@ public class StsadminCommand implements CommandExecutor {
                 if (API.isIntegerPositive(args[2])) {
                     int v = Integer.valueOf(args[2]);
                     rs.max = v;
-                    sender.sendMessage(MessageAPI.SUCCESSFULLY_SETMAX_STATS);
+                    sender.sendMessage(MessageConfig.SUCCESSFULLY_SETMAX_STATS);
                 } else {
-                    sender.sendMessage(MessageAPI.INCORRECT_POSITIVE_INTEGER);
+                    sender.sendMessage(MessageConfig.INCORRECT_POSITIVE_INTEGER);
                 }
             } else {
-                sender.sendMessage(MessageAPI.CANT_FINT_STATS_NAME);
+                sender.sendMessage(MessageConfig.CANT_FINT_STATS_NAME);
             }
         } else if (args[0].equalsIgnoreCase("agwgawgwa") && argslen == 2) {
 
         } else {
-            sender.sendMessage(MessageAPI.INCORRECT_MESSAGE.replace("<cmd>", label));
+            sender.sendMessage(MessageConfig.INCORRECT_MESSAGE.replace("<cmd>", label));
         }
         return true;
     }

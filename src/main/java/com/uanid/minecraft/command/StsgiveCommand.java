@@ -1,8 +1,8 @@
 package com.uanid.minecraft.command;
 
-import com.uanid.minecraft.api.StatsAPI;
-import com.uanid.minecraft.api.MessageAPI;
-import com.uanid.minecraft.api.StatsPlayer;
+import com.uanid.minecraft.service.StatsAPI;
+import com.uanid.minecraft.configuration.MessageConfig;
+import com.uanid.minecraft.domain.entity.StatsPlayer;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,15 +21,15 @@ public class StsgiveCommand implements CommandExecutor {
                 StatsPlayer sp = StatsAPI.getStatsPlayer(target);
                 if (API.isIntegerPositive(args[1])) {
                     sp.addAvailablePoint(Integer.valueOf(args[1]));
-                    sp.sendMessage(MessageAPI.STATS_GIVE_MESSAGE.replace("<point>", args[1]));
+                    sp.sendMessage(MessageConfig.STATS_GIVE_MESSAGE.replace("<point>", args[1]));
                 } else {
-                    sender.sendMessage(MessageAPI.INCORRECT_POSITIVE_INTEGER);
+                    sender.sendMessage(MessageConfig.INCORRECT_POSITIVE_INTEGER);
                 }
             } else {
-                sender.sendMessage(MessageAPI.CANT_FINT_USER);
+                sender.sendMessage(MessageConfig.CANT_FINT_USER);
             }
         } else {
-            for (String s : MessageAPI.stsgive) {
+            for (String s : MessageConfig.stsgive) {
                 sender.sendMessage(s);
             }
         }

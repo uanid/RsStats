@@ -2,12 +2,12 @@ package com.uanid.minecraft.event;
 
 import java.util.List;
 
-import com.uanid.minecraft.api.StatsAPI;
+import com.uanid.minecraft.service.StatsAPI;
 import com.uanid.minecraft.RsStats;
-import com.uanid.minecraft.api.MessageAPI;
-import com.uanid.minecraft.api.RpgStats;
-import com.uanid.minecraft.api.StatsPlayer;
-import com.uanid.minecraft.api.StatsRunAPI;
+import com.uanid.minecraft.configuration.MessageConfig;
+import com.uanid.minecraft.domain.entity.RpgStats;
+import com.uanid.minecraft.domain.entity.StatsPlayer;
+import com.uanid.minecraft.service.StatsRunAPI;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -107,7 +107,7 @@ public class playerEventBase implements Listener {
         int max = event.getNewLevel() - event.getOldLevel();
         if (max > 0 && StatsAPI.levelup != 0) {
             StatsPlayer sp = StatsAPI.getStatsPlayer(event.getPlayer().getName());
-            String message = MessageAPI.STATS_GIVE_MESSAGE.replace("<point>", String.valueOf(StatsAPI.levelup));
+            String message = MessageConfig.STATS_GIVE_MESSAGE.replace("<point>", String.valueOf(StatsAPI.levelup));
             for (int i = 0; i < max; i++) {
                 sp.sendMessage(message);
                 sp.addAvailablePoint(StatsAPI.levelup);
@@ -122,7 +122,7 @@ public class playerEventBase implements Listener {
             if (inv.getName().startsWith(StatsAPI.NAMECODE)) {
                 event.setCancelled(true);
                 HumanEntity player = event.getWhoClicked();
-                if (inv.getName().equals(StatsAPI.NAMECODE + MessageAPI.INVENTORY_NAME.replace("<name>", player.getName()))) {
+                if (inv.getName().equals(StatsAPI.NAMECODE + MessageConfig.INVENTORY_NAME.replace("<name>", player.getName()))) {
                     // 자기 인벤토리일 경우
                     ItemStack is = event.getCurrentItem();
                     if (is != null && is.getType() != Material.AIR) {
@@ -160,7 +160,7 @@ public class playerEventBase implements Listener {
                                             is = inv.getItem(StatsAPI.STATS_POINT_LOC);
                                             is.getItemMeta();
                                             list = im.getLore();
-                                            list.set(list.size() - 1, MessageAPI.AVILABLESTATS.replace("<point>", String.valueOf(sp.instavail)));
+                                            list.set(list.size() - 1, MessageConfig.AVILABLESTATS.replace("<point>", String.valueOf(sp.instavail)));
                                             im.setLore(list);
                                             is.setItemMeta(im);
                                             inv.setItem(StatsAPI.STATS_POINT_LOC, is);
@@ -186,7 +186,7 @@ public class playerEventBase implements Listener {
                 event.setCancelled(true);
                 // System.out.println("클릭 취소");
                 HumanEntity player = event.getWhoClicked();
-                if (inv.getName().equals(StatsAPI.NAMECODE + MessageAPI.INVENTORY_NAME.replace("<name>", player.getName()))) {
+                if (inv.getName().equals(StatsAPI.NAMECODE + MessageConfig.INVENTORY_NAME.replace("<name>", player.getName()))) {
                     ItemStack is = event.getCurrentItem();
 
                     if (is != null && is.getType() != Material.AIR) {
@@ -233,7 +233,7 @@ public class playerEventBase implements Listener {
                                                 is = inv.getItem(StatsAPI.STATS_POINT_LOC);
                                                 is.getItemMeta();
                                                 list = im.getLore();
-                                                list.set(list.size() - 1, MessageAPI.AVILABLESTATS.replace("<point>", String.valueOf(sp.instavail)));
+                                                list.set(list.size() - 1, MessageConfig.AVILABLESTATS.replace("<point>", String.valueOf(sp.instavail)));
                                                 im.setLore(list);
                                                 is.setItemMeta(im);
                                                 inv.setItem(StatsAPI.STATS_POINT_LOC, is);
@@ -259,7 +259,7 @@ public class playerEventBase implements Listener {
         StatsPlayer sp = StatsAPI.getStatsPlayer(player.getName());
         Inventory inv = event.getInventory();
         if (inv.getName().startsWith(StatsAPI.NAMECODE)) {
-            if (inv.getName().equals(StatsAPI.NAMECODE + MessageAPI.INVENTORY_NAME.replace("<name>", player.getName()))) {
+            if (inv.getName().equals(StatsAPI.NAMECODE + MessageConfig.INVENTORY_NAME.replace("<name>", player.getName()))) {
                 sp.resetInstValue();
                 sp.setInventory();
             }

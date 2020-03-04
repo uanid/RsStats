@@ -1,7 +1,7 @@
 package com.uanid.minecraft.command;
 
 import com.uanid.minecraft.RsStats;
-import com.uanid.minecraft.api.MessageAPI;
+import com.uanid.minecraft.configuration.MessageConfig;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,7 +15,7 @@ public class StatsCommand implements CommandExecutor {
         if (sender instanceof Player) {
             RsStats.sts.onCommand(sender, cmd, label, new String[]{"view"});
         } else {
-            sender.sendMessage(MessageAPI.CANT_CONSOLE_USE_THIS_COMMAND);
+            sender.sendMessage(MessageConfig.CANT_CONSOLE_USE_THIS_COMMAND);
         }
         return true;
     }

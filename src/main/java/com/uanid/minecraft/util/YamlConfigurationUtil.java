@@ -1,4 +1,4 @@
-package com.uanid.minecraft.config;
+package com.uanid.minecraft.util;
 
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
@@ -16,7 +16,7 @@ import java.util.jar.JarFile;
  * @version 1.0.4 2019-05-12
  * @since 2016-??-??
  */
-public class YamlConfiguration {
+public class YamlConfigurationUtil {
     private File file;
     private List<String> comment = new ArrayList<String>();
     private Yaml yaml;
@@ -24,15 +24,15 @@ public class YamlConfiguration {
     private Object javaObject;
     private Map<String, Object> map;
 
-    public YamlConfiguration() {
+    public YamlConfigurationUtil() {
         this((File) null);
     }
 
-    public YamlConfiguration(String file) {
+    public YamlConfigurationUtil(String file) {
         this(new File(file));
     }
 
-    public YamlConfiguration(File file) {
+    public YamlConfigurationUtil(File file) {
         DumperOptions yamlOptions = new DumperOptions();
         Representer yamlRepresent = new Representer();
         yamlOptions.setIndent(2);

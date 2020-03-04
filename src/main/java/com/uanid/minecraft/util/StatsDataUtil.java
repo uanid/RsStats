@@ -1,4 +1,4 @@
-package com.uanid.minecraft.api;
+package com.uanid.minecraft.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class StatsCmdAPI {
+public class StatsDataUtil {
 
     public static Map<String, Map<Integer, String>> map = null;
     public static File file = new File("plugins\\RsStats\\cmd.ser");

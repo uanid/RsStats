@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import com.uanid.minecraft.api.StatsAPI;
-import com.uanid.minecraft.api.MessageAPI;
-import com.uanid.minecraft.api.StatsCmdAPI;
+import com.uanid.minecraft.service.StatsAPI;
+import com.uanid.minecraft.configuration.MessageConfig;
+import com.uanid.minecraft.util.StatsDataUtil;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -33,9 +33,9 @@ public class StscmdCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         int argslen = args.length;
         if (argslen == 0) {
-            MessageAPI.helpMessageList(sender, MessageAPI.stscmd, 1, label);
+            MessageConfig.helpMessageList(sender, MessageConfig.stscmd, 1, label);
         } else if (API.isInteger(args[0]) && argslen == 1) {
-            MessageAPI.helpMessageList(sender, MessageAPI.stscmd, Integer.valueOf(args[0]), label);
+            MessageConfig.helpMessageList(sender, MessageConfig.stscmd, Integer.valueOf(args[0]), label);
         } else if (args[0].equalsIgnoreCase("set") && argslen >= 5) {
             if (StatsAPI.isStat(args[1])) {
                 if (API.isIntegerPositive(args[2])) {
@@ -44,48 +44,48 @@ public class StscmdCommand implements CommandExecutor {
                         int point = Integer.valueOf(args[2]);
                         String cmdtype = args[3].toLowerCase();
                         String cmd = API.mergeArgsUnder(args, 4);
-                        Map<Integer, String> smap = StatsCmdAPI.map.get(stats);
+                        Map<Integer, String> smap = StatsDataUtil.map.get(stats);
                         if (smap == null) {
                             smap = new TreeMap<Integer, String>();
                         }
                         smap.put(point, cmdtype + " " + cmd);
-                        StatsCmdAPI.map.put(stats, smap);
-                        sender.sendMessage(MessageAPI.SUCCESSFULLY_CMD_SET);
+                        StatsDataUtil.map.put(stats, smap);
+                        sender.sendMessage(MessageConfig.SUCCESSFULLY_CMD_SET);
                     } else {
-                        sender.sendMessage(MessageAPI.INCORRECT_CMD_TYPE);
+                        sender.sendMessage(MessageConfig.INCORRECT_CMD_TYPE);
                     }
                 } else {
-                    sender.sendMessage(MessageAPI.INCORRECT_POSITIVE_INTEGER);
+                    sender.sendMessage(MessageConfig.INCORRECT_POSITIVE_INTEGER);
                 }
             } else {
-                sender.sendMessage(MessageAPI.CANT_FINT_STATS_NAME);
+                sender.sendMessage(MessageConfig.CANT_FINT_STATS_NAME);
             }
         } else if (args[0].equalsIgnoreCase("remove") && argslen == 3) {
             if (StatsAPI.isStat(args[1])) {
                 if (API.isIntegerPositive(args[2])) {
                     int point = Integer.valueOf(args[2]);
                     String stats = args[1];
-                    Map<Integer, String> smap = StatsCmdAPI.map.get(stats);
+                    Map<Integer, String> smap = StatsDataUtil.map.get(stats);
                     if (smap == null) {
                         smap = new TreeMap<Integer, String>();
                     }
                     smap.remove(point);
-                    StatsCmdAPI.map.put(stats, smap);
-                    sender.sendMessage(MessageAPI.SUCCESSFULLY_CMD_REMOVE);
+                    StatsDataUtil.map.put(stats, smap);
+                    sender.sendMessage(MessageConfig.SUCCESSFULLY_CMD_REMOVE);
                 } else {
-                    sender.sendMessage(MessageAPI.INCORRECT_POSITIVE_INTEGER);
+                    sender.sendMessage(MessageConfig.INCORRECT_POSITIVE_INTEGER);
                 }
             } else {
-                sender.sendMessage(MessageAPI.CANT_FINT_STATS_NAME);
+                sender.sendMessage(MessageConfig.CANT_FINT_STATS_NAME);
             }
         } else if (args[0].equalsIgnoreCase("list") && argslen <= 2) {
             List<String> list = new ArrayList<String>();
             Map<Integer, String> smap;
-            for (String key : StatsCmdAPI.map.keySet()) {
-                smap = StatsCmdAPI.map.get(key);
-                list.add(MessageAPI.STSCMD_TYPE.replace("<stats>", key));
+            for (String key : StatsDataUtil.map.keySet()) {
+                smap = StatsDataUtil.map.get(key);
+                list.add(MessageConfig.STSCMD_TYPE.replace("<stats>", key));
                 for (Integer i : smap.keySet()) {
-                    list.add(MessageAPI.STSCMD_CMD.replace("<index>", String.valueOf(i)).replace("<cmd>", smap.get(i).replace('_', ' ')));
+                    list.add(MessageConfig.STSCMD_CMD.replace("<index>", String.valueOf(i)).replace("<cmd>", smap.get(i).replace('_', ' ')));
                 }
             }
             int index = 1;
@@ -93,13 +93,13 @@ public class StscmdCommand implements CommandExecutor {
                 if (API.isIntegerPositive(args[1])) {
                     index = Integer.valueOf(args[1]);
                 } else {
-                    sender.sendMessage(MessageAPI.INCORRECT_POSITIVE_INTEGER);
+                    sender.sendMessage(MessageConfig.INCORRECT_POSITIVE_INTEGER);
                     return true;
                 }
             }
-            MessageAPI.helpMessageList(sender, list, index, label);
+            MessageConfig.helpMessageList(sender, list, index, label);
         } else {
-            sender.sendMessage(MessageAPI.INCORRECT_MESSAGE.replace("<cmd>", label));
+            sender.sendMessage(MessageConfig.INCORRECT_MESSAGE.replace("<cmd>", label));
         }
         return true;
     }

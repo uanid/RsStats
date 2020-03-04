@@ -1,9 +1,9 @@
 package com.uanid.minecraft.event;
 
-import com.uanid.minecraft.api.StatsAPI;
-import com.uanid.minecraft.api.RpgStats;
-import com.uanid.minecraft.api.StatsPlayer;
-import com.uanid.minecraft.api.StatsRunAPI;
+import com.uanid.minecraft.service.StatsAPI;
+import com.uanid.minecraft.domain.entity.RpgStats;
+import com.uanid.minecraft.domain.entity.StatsPlayer;
+import com.uanid.minecraft.service.StatsRunAPI;
 
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
