@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 import kr.tpsw.rsstats.RsStats;
-import kr.tpsw.rsstats.YamlConfiguration;
+import kr.tpsw.rsstats.config.YamlConfiguration;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -48,9 +48,9 @@ public class StatsAPI {
             int x = config.getInt("config.availablestats.x");
             int y = config.getInt("config.availablestats.y");
             STATS_POINT_LOC = (x - 1) + (y - 1) * 9;
-            STATS_POINT = new ItemStack(0);
+            STATS_POINT = new ItemStack(Material.AIR);
             int[] ia = API.getItemCode(code);
-            STATS_POINT.setType(Material.getMaterial(ia[0]));
+            STATS_POINT.setType(Material.getMaterial(String.valueOf(ia[0])));//아마 동작안할듯, 일단 빌드라도 가능하게
             STATS_POINT.setDurability((short) ia[1]);
             ItemMeta im = STATS_POINT.getItemMeta();
             im.setDisplayName(name.replace('&', '§'));
@@ -66,9 +66,9 @@ public class StatsAPI {
             int x = config.getInt("config.save.x");
             int y = config.getInt("config.save.y");
             SAVE_STATS_LOC = (x - 1) + (y - 1) * 9;
-            SAVE_STATS = new ItemStack(0);
+            SAVE_STATS = new ItemStack(Material.AIR);
             int[] ia = API.getItemCode(code);
-            SAVE_STATS.setType(Material.getMaterial(ia[0]));
+            SAVE_STATS.setType(Material.getMaterial(String.valueOf(ia[0])));//아마 동작안할듯, 일단 빌드라도 가능하게
             SAVE_STATS.setDurability((short) ia[1]);
             ItemMeta im = SAVE_STATS.getItemMeta();
             im.setDisplayName(name.replace('&', '§'));
@@ -192,11 +192,6 @@ public class StatsAPI {
                 default:
                     break;
             }
-        }
-        if (StatsSet.HEALTH.size() == 0) {
-            StatsRunAPI.RegisterLoreAttributes();
-        } else {
-            StatsRunAPI.unRegisterLoreAttributes();
         }
     }
 

@@ -1,4 +1,4 @@
-﻿package kr.tpsw.rsstats.event;
+package kr.tpsw.rsstats.event;
 
 import kr.tpsw.rsstats.RsStats;
 import kr.tpsw.rsstats.api.RpgStats;
@@ -29,7 +29,7 @@ public class entityEventBase implements Listener {
             String defenser = null;
             if (entity instanceof Player) {// 공격자 [데미지, 크리티컬, 화살]
                 attacker = ((Player) entity).getName();
-                if (RsStats.LORE_AT_HOOKED ? StatsRunAPI.canAttack(attacker) : true) {
+                if (true) {
                     StatsPlayer sp = StatsAPI.getStatsPlayer(attacker);
                     if (sp != null) {
                         for (RpgStats rs : StatsSet.DAMAGE) {

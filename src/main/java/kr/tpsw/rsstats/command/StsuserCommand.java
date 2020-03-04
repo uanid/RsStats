@@ -132,7 +132,6 @@ public class StsuserCommand implements CommandExecutor {
 						for (RpgStats rs : StatsSet.HEALTH) {
 							health += StatsRunAPI.PlayerHealth(sp, rs);
 						} // 체력 업데이트
-						health += StatsRunAPI.getLoreAttributesBonusHp(sp);
 						if (health >= 1) {
 							sp.getPlayer().setMaxHealth((int) health);
 						}
@@ -150,7 +149,6 @@ public class StsuserCommand implements CommandExecutor {
 						for (RpgStats rss : StatsSet.HEALTH) {
 							health += StatsRunAPI.PlayerHealth(sp, rss);
 						} // 체력 업데이트
-						health += StatsRunAPI.getLoreAttributesBonusHp(sp);
 						if (health >= 1) {
 							sp.getPlayer().setMaxHealth((int) health);
 						}
@@ -174,7 +172,6 @@ public class StsuserCommand implements CommandExecutor {
 					for (RpgStats rs : StatsSet.HEALTH) {
 						health += StatsRunAPI.PlayerHealth(sp, rs);
 					} // 체력 업데이트
-					health += StatsRunAPI.getLoreAttributesBonusHp(sp);
 					if (health >= 1) {
 						sp.getPlayer().setMaxHealth((int) health);
 					}

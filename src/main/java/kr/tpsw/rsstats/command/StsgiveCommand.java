@@ -1,4 +1,4 @@
-﻿package kr.tpsw.rsstats.command;
+package kr.tpsw.rsstats.command;
 
 import kr.tpsw.rsstats.api.MessageAPI;
 import kr.tpsw.rsstats.api.StatsAPI;

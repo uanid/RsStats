@@ -4,8 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import kr.tpsw.rsstats.RsStats;
-import kr.tpsw.rsstats.RsStats;
-import kr.tpsw.rsstats.YamlConfiguration;
+import kr.tpsw.rsstats.config.YamlConfiguration;
 
 import org.bukkit.command.CommandSender;
 

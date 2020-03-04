@@ -1,4 +1,4 @@
-﻿package kr.tpsw.rsstats.event;
+package kr.tpsw.rsstats.event;
 
 import kr.tpsw.rsstats.api.RpgStats;
 import kr.tpsw.rsstats.api.StatsAPI;
@@ -25,7 +25,8 @@ public class blockEventBase implements Listener {
                 }
                 return;
             }
-            if (block == Material.WHEAT_SEEDS || block == Material.WHEAT || block == Material.MELON || block == Material.COCOA || block == Material.SAPLING || block == Material.POTATO || block == Material.CARROT) {
+            //TODO: 일단 빌드만 되게 수정, 나무 묘목들이 모든 타입을 반영하지 못하는 문제가 있음
+            if (block == Material.WHEAT || block == Material.WHEAT || block == Material.MELON || block == Material.COCOA || block == Material.SAPLING || block == Material.POTATO || block == Material.CARROT) {
                 for (RpgStats rs : StatsAPI.StatsSet.PLANTS) {
                     StatsRunAPI.BlockBreak(sp, rs, event);
                 }
@@ -42,7 +43,7 @@ public class blockEventBase implements Listener {
         if (event.canBuild() && !event.isCancelled()) {
             StatsPlayer sp = StatsAPI.getStatsPlayer(event.getPlayer().getName());
             Material block = event.getBlock().getType();
-            if (block == Material.WHEAT_SEEDS || block == Material.WHEAT || block == Material.MELON_SEEDS || block == Material.COCOA || block == Material.SPRUCE_SAPLING) {
+            if (block == Material.WHEAT || block == Material.WHEAT || block == Material.MELON_SEEDS || block == Material.COCOA || block == Material.SAPLING) {
                 for (RpgStats rs : StatsAPI.StatsSet.PLANTS) {
                     StatsRunAPI.BlockPlace(sp, rs, event);
                 }

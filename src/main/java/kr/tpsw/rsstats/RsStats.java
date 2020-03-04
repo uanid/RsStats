@@ -1,4 +1,4 @@
-﻿package kr.tpsw.rsstats;
+package kr.tpsw.rsstats;
 
 import java.io.File;
 import java.util.LinkedList;
@@ -7,7 +7,6 @@ import java.util.List;
 import kr.tpsw.rsstats.api.MessageAPI;
 import kr.tpsw.rsstats.api.StatsAPI;
 import kr.tpsw.rsstats.api.StatsCmdAPI;
-import kr.tpsw.rsstats.api.StatsRunAPI;
 import kr.tpsw.rsstats.api.StatsType;
 import kr.tpsw.rsstats.command.RsStatsCommand;
 import kr.tpsw.rsstats.command.StatsCommand;
@@ -18,17 +17,15 @@ import kr.tpsw.rsstats.command.StscmdCommand;
 import kr.tpsw.rsstats.command.StsgiveCommand;
 import kr.tpsw.rsstats.command.StsupdateCommand;
 import kr.tpsw.rsstats.command.StsuserCommand;
+import kr.tpsw.rsstats.config.YamlConfiguration;
 import kr.tpsw.rsstats.event.blockEventBase;
 import kr.tpsw.rsstats.event.entityEventBase;
 import kr.tpsw.rsstats.event.playerEventBase;
-import kr.tpsw.rsstats.event.rpgexpsystemEventBase;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -36,9 +33,7 @@ import rsstats.kr.tpsw.api.bukkit.PlayersAPI;
 
 public class RsStats extends JavaPlugin {
 
-	public final static String VERSION = "1.6.3";
-	public static boolean RES_HOOKED;
-	public static boolean LORE_AT_HOOKED;
+	public final static String VERSION = "2.5.0";
 	public static RsStats plugin;
 	public static final String lang = "kr";
 
@@ -87,37 +82,10 @@ public class RsStats extends JavaPlugin {
 			WordPressParsing.initRegister(this, getCommand("stsupdatenow"), this.getFile());
 			
 			PluginManager pm = Bukkit.getPluginManager();
-			{
-				Plugin pl = pm.getPlugin("RpgExpSystem");
-				if (pl != null) {
-					RES_HOOKED = true;
-					System.out.println("[RsStats] " + MessageAPI.PLUGIN_SEARCH.replace("<plugin>", "RpgExpSystem"));
-				} else {
-					System.out.println("[RsStats] " + MessageAPI.PLUGIN_CANT_SEARCH.replace("<plugin>", "RpgExpSystem"));
-					RES_HOOKED = false;
-				}
-			} // res2 후크
-
-			{
-				LORE_AT_HOOKED = StatsRunAPI.isLoreAttributesHooked;
-				if (LORE_AT_HOOKED) {
-					System.out.println("[RsStats] " + MessageAPI.PLUGIN_SEARCH.replace("<plugin>", "LoreArrtibutes"));
-				} else {
-					System.out.println("[RsStats] " + MessageAPI.PLUGIN_CANT_SEARCH.replace("<plugin>", "LoreArrtibutes"));
-				}
-			} // 로어어트리뷰 후크
 
 			pm.registerEvents(new blockEventBase(), this);
 			pm.registerEvents(new entityEventBase(), this);
 			pm.registerEvents(new playerEventBase(), this);
-			if (RES_HOOKED) {
-				try {
-					pm.registerEvents(new rpgexpsystemEventBase(), this);
-				} catch (Exception e) {
-					Class<?> cl = Class.forName("kr.tpsw.rsstats.event.rpgexpsystemEventBase");
-					pm.registerEvents((Listener) cl.newInstance(), this);
-				}
-			} // res2후크 실패시 강제 연결
 
 			this.setDataFile();
 			this.loadDataFile();// 데이터 로드, 설정

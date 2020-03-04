@@ -1,4 +1,4 @@
-﻿package kr.tpsw.rsstats.event;
+package kr.tpsw.rsstats.event;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import kr.tpsw.rsstats.api.StatsPlayer;
 import kr.tpsw.rsstats.api.StatsRunAPI;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -48,7 +49,6 @@ public class playerEventBase implements Listener {
         for (RpgStats rs : StatsSet.HEALTH) {
             health += StatsRunAPI.PlayerHealth(sp, rs);
         } // 체력 업데이트
-        health += StatsRunAPI.getLoreAttributesBonusHp(sp);
         if (health >= 1) {
             sp.getPlayer().setMaxHealth((int) health);
         }
@@ -61,7 +61,6 @@ public class playerEventBase implements Listener {
         for (RpgStats rs : StatsSet.HEALTH) {
             health += StatsRunAPI.PlayerHealth(sp, rs);
         } // 체력 업데이트
-        health += StatsRunAPI.getLoreAttributesBonusHp(sp);
         if (health >= 1) {
             sp.getPlayer().setMaxHealth((int) health);
         }
@@ -127,7 +126,7 @@ public class playerEventBase implements Listener {
                 if (inv.getName().equals(StatsAPI.NAMECODE + MessageAPI.INVENTORY_NAME.replace("<name>", player.getName()))) {
                     // 자기 인벤토리일 경우
                     ItemStack is = event.getCurrentItem();
-                    if (is != null && is.getTypeId() != 0) {
+                    if (is != null && is.getType() != Material.AIR) {
                         // 공기가 아니라면
                         int slot = event.getRawSlot();
                         if (slot == StatsAPI.STATS_POINT_LOC) {
@@ -191,7 +190,7 @@ public class playerEventBase implements Listener {
                 if (inv.getName().equals(StatsAPI.NAMECODE + MessageAPI.INVENTORY_NAME.replace("<name>", player.getName()))) {
                     ItemStack is = event.getCurrentItem();
 
-                    if (is != null && is.getTypeId() != 0) {
+                    if (is != null && is.getType() != Material.AIR) {
                         int slot = event.getSlot();
                         if (slot == StatsAPI.STATS_POINT_LOC) {
                             // 남은 스텟 버튼
@@ -271,7 +270,6 @@ public class playerEventBase implements Listener {
         for (RpgStats rs : StatsSet.HEALTH) {
             health += StatsRunAPI.PlayerHealth(sp, rs);
         } // 체력 업데이트
-        health += StatsRunAPI.getLoreAttributesBonusHp(sp);
         if (health >= 1) {
             sp.getPlayer().setMaxHealth((int) health);
         }
