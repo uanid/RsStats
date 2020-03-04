@@ -1,19 +1,14 @@
 package com.uanid.minecraft.domain.entity;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import com.uanid.minecraft.service.StatsService;
 import com.uanid.minecraft.util.StatsDataUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-
 import rsstats.kr.tpsw.api.bukkit.API;
+
+import java.io.Serializable;
+import java.util.*;
 
 public class StatsPlayer implements Serializable {
     private static final long serialVersionUID = -8753869250779895631L;

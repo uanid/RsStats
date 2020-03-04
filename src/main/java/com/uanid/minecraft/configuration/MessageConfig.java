@@ -1,12 +1,11 @@
 package com.uanid.minecraft.configuration;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import com.uanid.minecraft.RsStats;
 import com.uanid.minecraft.util.YamlConfigurationUtil;
-
 import org.bukkit.command.CommandSender;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class MessageConfig {
 
@@ -20,8 +19,7 @@ public class MessageConfig {
     public static String CANT_FIND_MESSAGELIST;// 목록을 찾을수가 없습니다.
     public static String CANT_FINT_STATS_NAME;// 해당된 이름의 스텟을 찾을수가 없습니다.
     public static String CANT_FINT_USER;// 해당 유저를 찾을수가 없습니다.
-    public static String CANT_CONSOLE_USE_THIS_COMMAND;// 콘솔은 해당 명령어의 사용이
-    // 불가능합니다.
+    public static String CANT_CONSOLE_USE_THIS_COMMAND;// 콘솔은 해당 명령어의 사용이 불가능합니다.
 
     public static String NEXT_MESSAGE;// 다음 목록을 보려면<cmd> <index>
     public static String LIST_INDEX_MESSAGE;// <n>개를 찾았습니다. <index>/<all>

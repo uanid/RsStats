@@ -1,20 +1,18 @@
 package com.uanid.minecraft.command;
 
-import java.util.HashMap;
-
-import com.uanid.minecraft.service.StatsService;
 import com.uanid.minecraft.RsStats;
 import com.uanid.minecraft.configuration.MessageConfig;
 import com.uanid.minecraft.domain.entity.RpgStats;
 import com.uanid.minecraft.domain.entity.StatsPlayer;
-
+import com.uanid.minecraft.service.StatsService;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
 import rsstats.kr.tpsw.api.bukkit.API;
 import rsstats.kr.tpsw.api.bukkit.PlayersAPI;
+
+import java.util.HashMap;
 
 public class Stsadmin2Command implements CommandExecutor {
 

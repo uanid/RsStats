@@ -1,23 +1,21 @@
 package com.uanid.minecraft.command;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-
-import com.uanid.minecraft.service.StatsService;
 import com.uanid.minecraft.configuration.MessageConfig;
 import com.uanid.minecraft.domain.entity.RpgStats;
 import com.uanid.minecraft.domain.type.StatsType;
-
+import com.uanid.minecraft.service.StatsService;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
 import rsstats.kr.tpsw.api.bukkit.API;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 public class StsadminCommand implements CommandExecutor {
 

@@ -2,7 +2,6 @@ package com.uanid.minecraft.command;
 
 import com.uanid.minecraft.RsStats;
 import com.uanid.minecraft.configuration.MessageConfig;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

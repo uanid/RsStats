@@ -1,18 +1,18 @@
 package com.uanid.minecraft.domain.entity;
 
+import com.uanid.minecraft.domain.type.StatsType;
+import com.uanid.minecraft.service.StatsService;
+import org.bukkit.Bukkit;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.uanid.minecraft.service.StatsService;
-import com.uanid.minecraft.domain.type.StatsType;
-import org.bukkit.Bukkit;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class RpgStats implements Serializable {
     private static final long serialVersionUID = 3393968338041653565L;

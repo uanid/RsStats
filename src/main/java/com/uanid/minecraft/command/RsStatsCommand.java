@@ -1,7 +1,6 @@
 package com.uanid.minecraft.command;
 
 import com.uanid.minecraft.RsStats;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

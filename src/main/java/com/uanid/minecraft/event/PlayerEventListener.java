@@ -1,14 +1,11 @@
 package com.uanid.minecraft.event;
 
-import java.util.List;
-
-import com.uanid.minecraft.service.StatsService;
 import com.uanid.minecraft.RsStats;
 import com.uanid.minecraft.configuration.MessageConfig;
 import com.uanid.minecraft.domain.entity.RpgStats;
 import com.uanid.minecraft.domain.entity.StatsPlayer;
 import com.uanid.minecraft.service.StatsRunService;
-
+import com.uanid.minecraft.service.StatsService;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
@@ -18,16 +15,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerItemConsumeEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerLevelChangeEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.List;
 
 public class PlayerEventListener implements Listener {
 
